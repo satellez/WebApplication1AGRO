@@ -1,6 +1,6 @@
 ﻿namespace WebApplication1AGRO.Test
 {
-    public class Testapp
+    public class Testapp1
     {
     }
 }
