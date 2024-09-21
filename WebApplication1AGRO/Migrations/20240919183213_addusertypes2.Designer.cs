@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240919183213_addusertypes2")]
+    partial class addusertypes2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,45 +24,6 @@ namespace WebApplication1AGRO.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.Contacs", b =>
-                {
-                    b.Property<int>("Contact_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Contact_id"));
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("User_id1")
-                        .HasColumnType("int");
-
-                    b.HasKey("Contact_id");
-
-                    b.HasIndex("User_id1");
-
-                    b.ToTable("Contacts");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.Documents", b =>
-                {
-                    b.Property<int>("Document_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Document_id"));
-
-                    b.Property<string>("Document_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Document_id");
-
-                    b.ToTable("Documents");
-                });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.UserTypes", b =>
                 {
@@ -93,6 +57,9 @@ namespace WebApplication1AGRO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Document_type")
+                        .HasColumnType("int");
+
                     b.Property<string>("Last_names")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -117,17 +84,6 @@ namespace WebApplication1AGRO.Migrations
                     b.HasIndex("UserTypesUserType_id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.Contacs", b =>
-                {
-                    b.HasOne("WebApplication1AGRO.Model.Users", "User_id")
-                        .WithMany()
-                        .HasForeignKey("User_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Users", b =>

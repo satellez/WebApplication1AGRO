@@ -1,6 +1,6 @@
 ﻿namespace WebApplication1AGRO.Repositories
 {
-    public class UserRepository
+    public class UsersRepository
     {
     }
 }

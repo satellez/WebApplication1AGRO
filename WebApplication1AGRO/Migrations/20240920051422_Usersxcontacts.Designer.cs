@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240920051422_Usersxcontacts")]
+    partial class Usersxcontacts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,23 +45,6 @@ namespace WebApplication1AGRO.Migrations
                     b.HasIndex("User_id1");
 
                     b.ToTable("Contacts");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.Documents", b =>
-                {
-                    b.Property<int>("Document_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Document_id"));
-
-                    b.Property<string>("Document_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Document_id");
-
-                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.UserTypes", b =>
