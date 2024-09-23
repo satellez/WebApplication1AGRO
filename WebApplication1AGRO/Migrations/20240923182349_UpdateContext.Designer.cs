@@ -12,8 +12,8 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    [Migration("20240923153232_1ra")]
-    partial class _1ra
+    [Migration("20240923182349_UpdateContext")]
+    partial class UpdateContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,11 +33,11 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CollectionPoint_id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Addres")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Point_Name")
+                    b.Property<string>("PointName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -54,61 +54,41 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Offer_id"));
 
-                    b.Property<DateTime>("End_Date")
+                    b.Property<DateTime>("EndOffer")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Final_Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("FinalPrice")
+                        .HasColumnType("int");
 
-                    b.Property<int>("ProdDeta_id")
+                    b.Property<int>("ProdDeta_id1")
                         .HasColumnType("int");
 
                     b.Property<int>("QuantityOffer")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Start_Date")
+                    b.Property<DateTime>("StartOffer")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Offer_id");
 
-                    b.ToTable("Offers");
-                });
+                    b.HasIndex("ProdDeta_id1");
 
-            modelBuilder.Entity("WebApplication1AGRO.Model.Product", b =>
-                {
-                    b.Property<int>("Product_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_id"));
-
-                    b.Property<string>("Product_Cate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Product_id");
-
-                    b.ToTable("Products");
+                    b.ToTable("offers");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.ProductCategories", b =>
                 {
-                    b.Property<int>("ProdCat_id")
+                    b.Property<int>("Category_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdCat_id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Category_id"));
 
-                    b.Property<string>("CatName")
+                    b.Property<string>("Category_name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProdCat_id");
+                    b.HasKey("Category_id");
 
                     b.ToTable("ProductCategories");
                 });
@@ -121,99 +101,97 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdDeta_id"));
 
-                    b.Property<int>("Collection_Point_Id")
+                    b.Property<int>("CollectionPoint_id1")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Harvest_date")
+                    b.Property<DateTime>("HarvestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Minimun_quantity")
+                    b.Property<int>("MinimunQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("Product_id1")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity_stock")
+                    b.Property<int>("QuantityStock")
                         .HasColumnType("int");
 
-                    b.Property<int>("Seller_IdUser_id")
+                    b.Property<int>("StartingPrice")
                         .HasColumnType("int");
 
-                    b.Property<int>("Starting_Price")
+                    b.Property<int>("WeigthPoundsPack")
                         .HasColumnType("int");
-
-                    b.Property<string>("weightPounds_pack")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProdDeta_id");
 
-                    b.HasIndex("Product_id1");
+                    b.HasIndex("CollectionPoint_id1");
 
-                    b.HasIndex("Seller_IdUser_id");
+                    b.HasIndex("Product_id1");
 
                     b.ToTable("ProductDetails");
                 });
 
-            modelBuilder.Entity("WebApplication1AGRO.Model.Users", b =>
+            modelBuilder.Entity("WebApplication1AGRO.Model.Products", b =>
                 {
-                    b.Property<int>("User_id")
+                    b.Property<int>("Product_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_id"));
 
-                    b.Property<DateTime>("Born_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Document_number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Document_type")
+                    b.Property<int>("Category_id1")
                         .HasColumnType("int");
 
-                    b.Property<string>("Last_names")
+                    b.Property<string>("Product_name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Names")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Product_id");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("Category_id1");
 
-                    b.Property<int>("User_type")
-                        .HasColumnType("int");
+                    b.ToTable("Products");
+                });
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("WebApplication1AGRO.Model.Offers", b =>
+                {
+                    b.HasOne("WebApplication1AGRO.Model.ProductDetails", "ProdDeta_id")
+                        .WithMany()
+                        .HasForeignKey("ProdDeta_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("User_id");
-
-                    b.ToTable("Users");
+                    b.Navigation("ProdDeta_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.ProductDetails", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.Product", "Product_id")
+                    b.HasOne("WebApplication1AGRO.Model.Collections", "CollectionPoint_id")
+                        .WithMany()
+                        .HasForeignKey("CollectionPoint_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1AGRO.Model.Products", "Product_id")
                         .WithMany()
                         .HasForeignKey("Product_id1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1AGRO.Model.Users", "Seller_Id")
+                    b.Navigation("CollectionPoint_id");
+
+                    b.Navigation("Product_id");
+                });
+
+            modelBuilder.Entity("WebApplication1AGRO.Model.Products", b =>
+                {
+                    b.HasOne("WebApplication1AGRO.Model.ProductCategories", "Category_id")
                         .WithMany()
-                        .HasForeignKey("Seller_IdUser_id")
+                        .HasForeignKey("Category_id1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product_id");
-
-                    b.Navigation("Seller_Id");
+                    b.Navigation("Category_id");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,37 +11,41 @@ namespace WebApplication1AGRO.Context
         {
 
         }
-       
-        public DbSet<Users> Users { get; set; }
-        public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategories> ProductCategories { get; set; }
-        public DbSet<ProductDetails> ProductDetails { get; set; }
-        public DbSet<Offers> Offers { get; set; }
+        public DbSet<Products> Products { get; set; }
         public DbSet<Collections> Collections { get; set; }
+        public DbSet<ProductDetails> ProductDetails { get; set; }
+        public DbSet<Offers> offers { get; set; }
+        
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Users>().HasKey(u => u.User_id);
-            
+            modelBuilder.Entity<ProductCategories>()
+                .HasKey(pc => pc.Category_id);
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Product>().HasKey(u => u.Product_id);
+            modelBuilder.Entity<Products>()
+                .HasKey(p => p.Product_id);
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ProductCategories>().HasKey(u => u.ProdCat_id);
+            modelBuilder.Entity<Collections>()
+                .HasKey(c => c.CollectionPoint_id);
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ProductDetails>().HasKey(u => u.ProdDeta_id);
+            modelBuilder.Entity<ProductDetails>()
+                .HasKey(pd => pd.ProdDeta_id);
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Offers>().HasKey(u => u.Offer_id);
+            modelBuilder.Entity<Offers>()
+                .HasKey(o => o.Offer_id);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Collections>().HasKey(u => u.CollectionPoint_id);
 
-           
+
+
+
         }
 
               

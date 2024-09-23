@@ -3,11 +3,11 @@
     public class Offers
     {
         public required int Offer_id { get; set; }
-        public required int ProdDeta_id { get; set; }
+        public required ProductDetails ProdDeta_id { get; set; }
         public required int QuantityOffer { get; set; }
-        public required string Final_Price { get; set; }
-        public required DateTime Start_Date { get; set; }
-        public required DateTime End_Date { get; set; }
+        public required int FinalPrice { get; set; }
+        public required DateTime StartOffer { get; set; }
+        public required DateTime EndOffer { get; set; }
 
     }
 }

@@ -3,7 +3,7 @@
     public class Collections
     {
         public required int CollectionPoint_id { get; set; }
-        public required string Point_Name { get; set; }
-        public required string Address { get; set; }
+        public required string PointName { get; set; }
+        public required string Addres { get; set; }
     }
 }
