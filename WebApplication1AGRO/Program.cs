@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1AGRO.Context;
+using WebApplication1AGRO.Repositories;
+using WebApplication1AGRO.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,3 +30,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//Record of repositories and services
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+
+builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
+builder.Services.AddScoped<IUserTypesService, UserTypesService>();
