@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923002731_BillsxPaymentMethods")]
+    partial class BillsxPaymentMethods
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,24 +24,6 @@ namespace WebApplication1AGRO.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.BillDetails", b =>
-                {
-                    b.Property<int>("BillDeta_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillDeta_id"));
-
-                    b.Property<int>("Bill_id1")
-                        .HasColumnType("int");
-
-                    b.HasKey("BillDeta_id");
-
-                    b.HasIndex("Bill_id1");
-
-                    b.ToTable("BillDetails");
-                });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
                 {
@@ -205,17 +190,6 @@ namespace WebApplication1AGRO.Migrations
                     b.HasIndex("UserTypesUserType_id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.BillDetails", b =>
-                {
-                    b.HasOne("WebApplication1AGRO.Model.Bills", "Bill_id")
-                        .WithMany()
-                        .HasForeignKey("Bill_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bill_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>

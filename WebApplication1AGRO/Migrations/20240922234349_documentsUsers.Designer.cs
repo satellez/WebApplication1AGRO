@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240922234349_documentsUsers")]
+    partial class documentsUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,50 +24,6 @@ namespace WebApplication1AGRO.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.BillDetails", b =>
-                {
-                    b.Property<int>("BillDeta_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillDeta_id"));
-
-                    b.Property<int>("Bill_id1")
-                        .HasColumnType("int");
-
-                    b.HasKey("BillDeta_id");
-
-                    b.HasIndex("Bill_id1");
-
-                    b.ToTable("BillDetails");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
-                {
-                    b.Property<int>("Bill_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Bill_id"));
-
-                    b.Property<int>("PayMeth_idMethod_id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Purchase_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("User_id2User_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Bill_id");
-
-                    b.HasIndex("PayMeth_idMethod_id");
-
-                    b.HasIndex("User_id2User_id");
-
-                    b.ToTable("Bills");
-                });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Contacs", b =>
                 {
@@ -78,36 +37,14 @@ namespace WebApplication1AGRO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DataType_id1")
-                        .HasColumnType("int");
-
                     b.Property<int>("User_id1")
                         .HasColumnType("int");
 
                     b.HasKey("Contact_id");
 
-                    b.HasIndex("DataType_id1");
-
                     b.HasIndex("User_id1");
 
                     b.ToTable("Contacts");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.DataTypes", b =>
-                {
-                    b.Property<int>("DataType_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DataType_id"));
-
-                    b.Property<string>("DataType_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DataType_id");
-
-                    b.ToTable("DataTypes");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Documents", b =>
@@ -125,23 +62,6 @@ namespace WebApplication1AGRO.Migrations
                     b.HasKey("Document_id");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.PaymentMethods", b =>
-                {
-                    b.Property<int>("Method_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Method_id"));
-
-                    b.Property<string>("Method_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Method_id");
-
-                    b.ToTable("PaymentMethods");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.UserTypes", b =>
@@ -207,51 +127,13 @@ namespace WebApplication1AGRO.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApplication1AGRO.Model.BillDetails", b =>
-                {
-                    b.HasOne("WebApplication1AGRO.Model.Bills", "Bill_id")
-                        .WithMany()
-                        .HasForeignKey("Bill_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bill_id");
-                });
-
-            modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
-                {
-                    b.HasOne("WebApplication1AGRO.Model.PaymentMethods", "PayMeth_id")
-                        .WithMany()
-                        .HasForeignKey("PayMeth_idMethod_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1AGRO.Model.Users", "User_id2")
-                        .WithMany()
-                        .HasForeignKey("User_id2User_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PayMeth_id");
-
-                    b.Navigation("User_id2");
-                });
-
             modelBuilder.Entity("WebApplication1AGRO.Model.Contacs", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.DataTypes", "DataType_id")
-                        .WithMany()
-                        .HasForeignKey("DataType_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebApplication1AGRO.Model.Users", "User_id")
                         .WithMany()
                         .HasForeignKey("User_id1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("DataType_id");
 
                     b.Navigation("User_id");
                 });
