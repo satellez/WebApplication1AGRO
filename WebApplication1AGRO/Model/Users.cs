@@ -13,5 +13,6 @@
 
         public required UserTypes UserTypes { get; set; }
 
+        public required Documents Document_types { get; set; }
     }
 }
