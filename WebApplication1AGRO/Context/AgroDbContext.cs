@@ -18,6 +18,7 @@ namespace WebApplication1AGRO.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Users>().HasKey(u => u.User_id);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
