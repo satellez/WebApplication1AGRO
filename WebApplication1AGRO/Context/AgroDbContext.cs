@@ -16,7 +16,9 @@ namespace WebApplication1AGRO.Context
         public DbSet<Collections> Collections { get; set; }
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<Offers> offers { get; set; }
-        
+        public DbSet<Users> User_id { get; set; }
+
+
 
 
 
@@ -42,9 +44,9 @@ namespace WebApplication1AGRO.Context
             modelBuilder.Entity<Offers>()
                 .HasKey(o => o.Offer_id);
 
-
-
-
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Users>()
+                .HasKey(u => u.User_id);
 
         }
 
