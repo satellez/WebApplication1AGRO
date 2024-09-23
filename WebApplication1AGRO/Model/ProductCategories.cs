@@ -2,8 +2,8 @@
 {
     public class ProductCategories
     {
-        public int ProductCategorie_id { get; set; }
-        public required string CategNames { get; set; }
+        public int ProdCat_id { get; set; }
+        public required string CatName { get; set; }
         
     }
 }
