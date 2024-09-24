@@ -2,7 +2,7 @@
 
 namespace WebApplication1AGRO.Repositories.InterfacesRepository
 {
-    public interface IProductsRepositories
+    public interface IProductsRepository
     {
         Task<IEnumerable<Products>> GetAllProductsAsync();
         Task<Products?> GetProductsByIdAsync(int id);

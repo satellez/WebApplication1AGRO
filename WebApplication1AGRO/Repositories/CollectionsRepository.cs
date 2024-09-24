@@ -5,7 +5,7 @@ using WebApplication1AGRO.Repositories.InterfacesRepository;
 
 namespace WebApplication1AGRO.Repositories
 {
-    public class CollectionsRepository : ICollectionsRepositories
+    public class CollectionsRepository : ICollectionsRepository
     {
         private readonly AgroDbContext _context;
 

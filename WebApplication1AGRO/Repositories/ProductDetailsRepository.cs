@@ -5,11 +5,10 @@ using WebApplication1AGRO.Repositories.InterfacesRepository;
 
 namespace WebApplication1AGRO.Repositories
 {
-    public class ProductDetailRepository
+    public class ProductDetailsRepository : IProductDetailsRepository
     {
-        public class ProductDetailsRepository : IProductDetailsRepositories
-        {
-            private readonly AgroDbContext _context;
+
+         private readonly AgroDbContext _context;
 
             public ProductDetailsRepository(AgroDbContext context)
             {
@@ -50,5 +49,5 @@ namespace WebApplication1AGRO.Repositories
                 _context.ProductDetails.Update(productDetails);
                 await _context.SaveChangesAsync();
             }
-        }
     }
+}

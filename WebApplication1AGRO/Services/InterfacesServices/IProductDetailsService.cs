@@ -1,10 +1,10 @@
 ﻿using WebApplication1AGRO.Model;
 
-namespace WebApplication1AGRO.Repositories.InterfacesRepository
+namespace WebApplication1AGRO.Services.InterfacesServices
 {
-    public interface IProductDetailsRepositories
+    public interface IProductDetailsService
     {
-        Task<IEnumerable<ProductDetails>> GetAllProductDetailsAsync();
+        Task<IEnumerable<ProductDetails?>> GetAllProductDetailsAsync();
         Task<ProductDetails?> GetProductDetailsByIdAsync(int id);
         Task CreateProductDetailsAsync(ProductDetails productDetails);
         Task UpdateProductDetailsAsync(ProductDetails productDetails);
