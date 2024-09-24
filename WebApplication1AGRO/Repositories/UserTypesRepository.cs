@@ -46,14 +46,6 @@ namespace WebApplication1AGRO.Repositories
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<UserTypes>> IUserTypesRepository.GetAllUserTypesAsync()
-        {
-            throw new NotImplementedException();
-        }
 
-        Task<UserTypes> IUserTypesRepository.GetUserTypesByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
