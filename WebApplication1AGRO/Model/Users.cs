@@ -11,7 +11,6 @@ namespace WebApplication1AGRO.Model
         public required DateTime Born_date { get; set; }
         public bool IsDeleted { get; set; } = false;
 
-        public required UserTypes UserTypes { get; set; }
-        public required Documents Document_types { get; set; }
+
     }
 }

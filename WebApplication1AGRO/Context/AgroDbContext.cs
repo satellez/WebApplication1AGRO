@@ -14,7 +14,7 @@ namespace WebApplication1AGRO.Context
 
         public DbSet<Products> Products { get; set; }
         public DbSet<Collections> Collections { get; set; }
-        public DbSet<Offers> ProductCategories { get; set; }
+        public DbSet<ProductCategories> ProductCategories { get; set; }
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<Offers> Offers { get; set; }
         public DbSet<Users> Users { get; set; }

@@ -9,6 +9,6 @@
         public required DateTime StartOffer { get; set; }
         public required DateTime EndOffer { get; set; }
         public bool IsDeleted { get; set; } = false;
-
+        public int Category_id { get; internal set; }
     }
 }
