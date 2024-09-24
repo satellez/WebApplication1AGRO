@@ -50,6 +50,7 @@ namespace WebApplication1AGRO.Controllers
 
         }
 
+        [HttpPost]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

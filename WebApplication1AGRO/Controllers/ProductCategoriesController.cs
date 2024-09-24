@@ -38,6 +38,7 @@ namespace WebApplication1AGRO.Controllers
             return Ok(offers);
         }
 
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> CreateProductCategories([FromBody] ProductCategories offers)
