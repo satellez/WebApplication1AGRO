@@ -2,7 +2,7 @@
 
 namespace WebApplication1AGRO.Services.InterfacesServices
 {
-    public interface IColllectionsService
+    public interface ICollectionsService
     {
         Task<IEnumerable<Collections?>> GetAllCollectionsAsync();
         Task<Collections?> GetCollectionsByIdAsync(int id);

@@ -4,7 +4,7 @@ using WebApplication1AGRO.Services.InterfacesServices;
 
 namespace WebApplication1AGRO.Services
 {
-    public class CollectionsService : IColllectionsService
+    public class CollectionsService : ICollectionsService
     {
         private readonly ICollectionsRepository _collectionsRepository;
 
