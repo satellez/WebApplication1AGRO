@@ -1,4 +1,4 @@
-namespace WebApplication1AGRO.Model
+﻿namespace WebApplication1AGRO.Model
 {
     public class Users
     {

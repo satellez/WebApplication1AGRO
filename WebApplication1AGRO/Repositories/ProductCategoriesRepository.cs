@@ -7,6 +7,7 @@ namespace WebApplication1AGRO.Repositories
 {
     public class ProductCategoriesRepository : IProductCategoriesRepository
     {
+       
         private readonly AgroDbContext _context;
 
         public ProductCategoriesRepository(AgroDbContext context)
