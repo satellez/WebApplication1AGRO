@@ -38,6 +38,7 @@ namespace WebApplication1AGRO.Controllers
             return Ok(offers);
         }
 
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> CreateOffers([FromBody] Offers offers)
@@ -50,7 +51,7 @@ namespace WebApplication1AGRO.Controllers
 
         }
 
-        [HttpPost]
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
