@@ -8,6 +8,7 @@
         public required int FinalPrice { get; set; }
         public required DateTime StartOffer { get; set; }
         public required DateTime EndOffer { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
     }
 }

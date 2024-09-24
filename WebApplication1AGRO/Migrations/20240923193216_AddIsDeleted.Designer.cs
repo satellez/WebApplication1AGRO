@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923193216_AddIsDeleted")]
+    partial class AddIsDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace WebApplication1AGRO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("Isdeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("PointName")
@@ -60,7 +63,7 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<int>("FinalPrice")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("Isdeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("ProdDeta_id1")
@@ -91,7 +94,7 @@ namespace WebApplication1AGRO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("Isdeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Category_id");
@@ -113,7 +116,7 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<DateTime>("HarvestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("Isdeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("MinimunQuantity")
@@ -156,7 +159,7 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<int>("Category_id1")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("Isdeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Product_name")

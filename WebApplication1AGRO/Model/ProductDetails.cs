@@ -11,5 +11,6 @@
         public required Users User_id { get; set; }
         public required Collections CollectionPoint_id  { get; set; }
         public required DateTime HarvestDate { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }
