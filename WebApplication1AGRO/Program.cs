@@ -33,7 +33,11 @@ app.MapControllers();
 
 app.Run();
 
-//Record of repositories and services
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+
+builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
+builder.Services.AddScoped<IUserTypesService, UserTypesService>();
 builder.Services.AddScoped<ICollectionsRepository, CollectionsRepository>();
 builder.Services.AddScoped<ICollectionsService, CollectionsService>();
 
@@ -48,7 +52,4 @@ builder.Services.AddScoped<IProductDetailsService, ProductDetailsService>();
 
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
-
-
-
 
