@@ -10,7 +10,7 @@
         public required string Username { get; set; }
         public required string Password { get; set; }
         public required DateTime Born_date { get; set; }
-        public bool Isdeleted { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
 
         //public required UserTypes UserTypes { get; set; }
 
