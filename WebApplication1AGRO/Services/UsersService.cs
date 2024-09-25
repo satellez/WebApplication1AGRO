@@ -1,5 +1,7 @@
 ﻿using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Repositories;
+using WebApplication1AGRO.Repositories.InterfacesRepository;
+using WebApplication1AGRO.Services.InterfacesRepository;
 
 namespace WebApplication1AGRO.Services
 {
@@ -12,12 +14,12 @@ namespace WebApplication1AGRO.Services
             _usersRepository = usersRepository;
         }
 
-        public async Task<IEnumerable<Users>> GetAllUsersAsync()
+        public async Task<IEnumerable<Users?>> GetAllUsersAsync()
         {
             return await _usersRepository.GetAllUsersAsync();
         }
 
-        public async Task<Users> GetUsersByIdAsync(int  id)
+        public async Task<Users?> GetUsersByIdAsync(int  id)
         {
             return await _usersRepository.GetUsersByIdAsync(id);
         }

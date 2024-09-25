@@ -3,6 +3,7 @@ using WebApplication1AGRO.Context;
 using WebApplication1AGRO.Repositories;
 using WebApplication1AGRO.Repositories.InterfacesRepository;
 using WebApplication1AGRO.Services;
+using WebApplication1AGRO.Services.InterfacesRepository;
 using WebApplication1AGRO.Services.InterfacesService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +49,33 @@ builder.Services.AddScoped<IProductDetailsService, ProductDetailsService>();
 
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+
+builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
+builder.Services.AddScoped<IUserTypesService, UserTypesService>();
+
+
+builder.Services.AddScoped<IBillsRepository, BillsRepository>();
+builder.Services.AddScoped<IBillsService, BillsService>();
+
+builder.Services.AddScoped<IBillDetailsRepository, BillDetailsRepository>();
+builder.Services.AddScoped<IBillDetailsService, BillDetailsService>();
+
+builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
+builder.Services.AddScoped<IContactsService, ContactsService>();
+
+builder.Services.AddScoped<IDataTypesRepository, DataTypesRepository>();
+builder.Services.AddScoped<IDataTypesService, DataTypesService>();
+
+builder.Services.AddScoped<IDocumentsRepository, DocumentsRepository>();
+builder.Services.AddScoped<IDocumentsService, DocumentsService>();
+
+builder.Services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
+builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
+
+
 
 
 

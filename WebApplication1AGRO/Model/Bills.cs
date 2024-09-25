@@ -7,6 +7,8 @@
 
         public required DateTime Purchase_date { get; set; }
         public required PaymentMethods PayMeth_id { get; set; }
+        public bool IsDeleted { get; set; } = false;
+
 
     }
 }

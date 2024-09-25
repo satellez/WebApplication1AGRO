@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1AGRO.Context;
 using WebApplication1AGRO.Model;
+using WebApplication1AGRO.Repositories.InterfacesRepository;
 
 namespace WebApplication1AGRO.Repositories
 {
@@ -25,7 +26,7 @@ namespace WebApplication1AGRO.Repositories
                 .ToListAsync();
         }
 
-        public async Task<UserTypes> GetUserTypesByIdAsync(int id)
+        public async Task<UserTypes?> GetUserTypesByIdAsync(int id)
         {
             return await _context.UserTypes
                 .FirstOrDefaultAsync(s => s.UserType_id == id && !s.IsDeleted);
