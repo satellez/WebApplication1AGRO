@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Services;
+using WebApplication1AGRO.Services.InterfacesRepository;
 
 namespace WebApplication1AGRO.Controllers
 {
@@ -38,6 +39,7 @@ namespace WebApplication1AGRO.Controllers
             return Ok(userTypes);
         }
 
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> CreateUserTypes([FromBody] UserTypes userTypes)

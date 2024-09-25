@@ -1,44 +1,55 @@
-protected override void OnModelCreating(ModelBuilder modelBuilder)
+using WebApplication1AGRO.Model;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace WebApplication1AGRO.Context
 {
-    base.OnModelCreating(modelBuilder);
+    public class AgroDbContext : DbContext
 
-    modelBuilder.Entity<ProductCategories>()
-        .HasKey(pc => pc.Category_id);
+    {
+        public AgroDbContext(DbContextOptions options) : base(options)
+        {
 
-    modelBuilder.Entity<Products>()
-        .HasKey(p => p.Product_id);
+        }
 
-    modelBuilder.Entity<Collections>()
-        .HasKey(c => c.CollectionPoint_id);
+        public DbSet<Users> Users { get; set; }
+        public DbSet<UserTypes> UserTypes { get; set; }
+        public DbSet<Contacts> Contacts { get; set; }
+        public DbSet<Documents> Documents { get; set; }
+        public DbSet<DataTypes> DataTypes { get; set; }
 
-    modelBuilder.Entity<ProductDetails>()
-        .HasKey(pd => pd.ProdDeta_id);
+        public DbSet<Bills> Bills { get; set; }
+        public DbSet<PaymentMethods> PaymentMethods { get; set; }
 
-    modelBuilder.Entity<Offers>()
-        .HasKey(o => o.Offer_id);
+        public DbSet<BillDetails> BillDetails { get; set; }
 
-    modelBuilder.Entity<Users>()
-        .HasKey(u => u.User_id);
 
-    modelBuilder.Entity<UserTypes>()
-        .HasKey(ut => ut.UserType_id);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Users>().HasKey(u => u.User_id);
 
-    modelBuilder.Entity<Contacts>()
-        .HasKey(c => c.Contact_id);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserTypes>().HasKey(u => u.UserType_id);
 
-    modelBuilder.Entity<Documents>()
-        .HasKey(d => d.Document_id);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Contacts>().HasKey(u => u.Contact_id);
 
-    modelBuilder.Entity<DataTypes>()
-        .HasKey(dt => dt.DataType_id);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Documents>().HasKey(u => u.Document_id);
 
-    modelBuilder.Entity<Bills>()
-        .HasKey(b => b.Bill_id);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<DataTypes>().HasKey(u => u.DataType_id);
 
-    modelBuilder.Entity<PaymentMethods>()
-        .HasKey(pm => pm.Method_id);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Bills>().HasKey(u => u.Bill_id);
 
-    modelBuilder.Entity<BillDetails>()
-        .HasKey(bd => bd.BillDeta_id);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PaymentMethods>().HasKey(u => u.Method_id);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<BillDetails>().HasKey(u => u.BillDeta_id);
+
+        }
+    }
 }
-

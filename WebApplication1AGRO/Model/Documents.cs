@@ -6,5 +6,7 @@
 
         public required string Document_name { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
     }
 }

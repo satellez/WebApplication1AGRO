@@ -7,6 +7,8 @@
         public required Users User_id { get; set; }
 
         public required DataTypes DataType_id { get; set; }
+
         public bool IsDeleted { get; set; } = false;
+
     }
 }
