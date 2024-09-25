@@ -1,6 +1,6 @@
 ﻿using WebApplication1AGRO.Model;
 
-namespace WebApplication1AGRO.Services.InterfacesServices
+namespace WebApplication1AGRO.Services.InterfacesService
 {
     public interface IProductsService
     {
