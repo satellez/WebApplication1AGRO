@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1AGRO.Model;
-using WebApplication1AGRO.Services;
+using WebApplication1AGRO.Services.InterfacesRepository;
 
 
 namespace WebApplication1AGRO.Controllers
