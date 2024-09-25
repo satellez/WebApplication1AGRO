@@ -1,6 +1,6 @@
 ﻿using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Repositories.InterfacesRepository;
-using WebApplication1AGRO.Services.InterfacesServices;
+using WebApplication1AGRO.Services.InterfacesService;
 
 namespace WebApplication1AGRO.Services
 {

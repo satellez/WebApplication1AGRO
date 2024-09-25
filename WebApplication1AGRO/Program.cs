@@ -3,7 +3,7 @@ using WebApplication1AGRO.Context;
 using WebApplication1AGRO.Repositories;
 using WebApplication1AGRO.Repositories.InterfacesRepository;
 using WebApplication1AGRO.Services;
-using WebApplication1AGRO.Services.InterfacesServices;
+using WebApplication1AGRO.Services.InterfacesService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,11 +33,7 @@ app.MapControllers();
 
 app.Run();
 
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-builder.Services.AddScoped<IUsersService, UsersService>();
-
-builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
-builder.Services.AddScoped<IUserTypesService, UserTypesService>();
+//Record of repositories and services
 builder.Services.AddScoped<ICollectionsRepository, CollectionsRepository>();
 builder.Services.AddScoped<ICollectionsService, CollectionsService>();
 
@@ -52,4 +48,7 @@ builder.Services.AddScoped<IProductDetailsService, ProductDetailsService>();
 
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+
+
+
 

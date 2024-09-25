@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1AGRO.Model;
-using WebApplication1AGRO.Services.InterfacesServices;
+using WebApplication1AGRO.Services.InterfacesService;
 
 namespace WebApplication1AGRO.Controllers
 {
