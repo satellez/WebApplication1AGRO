@@ -17,24 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-
-//Record of repositories and services
+// Record of repositories and services
 builder.Services.AddScoped<ICollectionsRepository, CollectionsRepository>();
 builder.Services.AddScoped<ICollectionsService, CollectionsService>();
 
@@ -56,7 +39,6 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
 builder.Services.AddScoped<IUserTypesService, UserTypesService>();
 
-
 builder.Services.AddScoped<IBillsRepository, BillsRepository>();
 builder.Services.AddScoped<IBillsService, BillsService>();
 
@@ -75,8 +57,20 @@ builder.Services.AddScoped<IDocumentsService, DocumentsService>();
 builder.Services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
 builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
 
+// Build the app
+var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
+app.UseHttpsRedirection();
 
+app.UseAuthorization();
 
+app.MapControllers();
 
+app.Run();
