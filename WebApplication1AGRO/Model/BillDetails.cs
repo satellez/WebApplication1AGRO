@@ -7,5 +7,7 @@
 
         public bool IsDeleted { get; set; } = false;
 
+        public required Products Product_id  { get; set; }
+
     }
 }

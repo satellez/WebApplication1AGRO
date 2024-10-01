@@ -11,6 +11,9 @@
         public required DateTime Born_date { get; set; }
         public required UserTypes UserTypes { get; set; }
         public required Documents Document_types { get; set; }
+        public required DateTime Date { get; set; }
+        public required DateTime Modified { get; set; }
+        public required string ModifiedBy { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }

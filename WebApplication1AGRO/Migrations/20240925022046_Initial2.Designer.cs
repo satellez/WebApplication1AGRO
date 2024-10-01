@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240925022046_Initial2")]
+    partial class Initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,14 +39,9 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Product_id1")
-                        .HasColumnType("int");
-
                     b.HasKey("BillDeta_id");
 
                     b.HasIndex("Bill_id1");
-
-                    b.HasIndex("Product_id1");
 
                     b.ToTable("BillDetails");
                 });
@@ -395,15 +393,7 @@ namespace WebApplication1AGRO.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1AGRO.Model.Products", "Product_id")
-                        .WithMany()
-                        .HasForeignKey("Product_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Bill_id");
-
-                    b.Navigation("Product_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
