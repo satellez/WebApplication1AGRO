@@ -3,10 +3,8 @@ using WebApplication1AGRO.Context;
 using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Repositories.InterfacesRepository;
 
-
 namespace WebApplication1AGRO.Repositories
 {
-
     public class PaymentMethodsRepository : IPaymentMethodsRepository
     {
         private readonly AgroDbContext _context;
@@ -18,6 +16,9 @@ namespace WebApplication1AGRO.Repositories
 
         public async Task CreatePaymentMethodsAsync(PaymentMethods paymentMethods)
         {
+            // set IsDeleted as false when creating a new payment method
+            paymentMethods.IsDeleted = false;
+
             _context.PaymentMethods.Add(paymentMethods);
             await _context.SaveChangesAsync();
         }
@@ -37,18 +38,29 @@ namespace WebApplication1AGRO.Repositories
 
         public async Task SoftDeletePaymentMethodsAsync(int id)
         {
-            var paymentMethods = await _context.PaymentMethods.FindAsync(id);
-            if (paymentMethods != null)
+            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
+            if (paymentMethod != null)
             {
-                paymentMethods.IsDeleted = true;
+                paymentMethod.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
         }
 
-        public async Task UpdatePaymentMethodsAsync(PaymentMethods paymentMethods)
+        public async Task UpdatePaymentMethodsAsync(PaymentMethods updatedPaymentMethod)
         {
-            _context.PaymentMethods.Update(paymentMethods);
-            await _context.SaveChangesAsync();
+            var existingPaymentMethod = await _context.PaymentMethods.FindAsync(updatedPaymentMethod.Method_id);
+            if (existingPaymentMethod != null)
+            {
+                // Actualizamos los campos
+                existingPaymentMethod.Method_name = updatedPaymentMethod.Method_name;
+
+                // Guardar los cambios en la base de datos
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"PaymentMethod with ID {updatedPaymentMethod.Method_id} not found.");
+            }
         }
     }
 }
