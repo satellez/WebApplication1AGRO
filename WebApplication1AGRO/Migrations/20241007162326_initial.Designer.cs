@@ -12,8 +12,8 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    [Migration("20241007023030_BillDetailsUpdate")]
-    partial class BillDetailsUpdate
+    [Migration("20241007162326_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,20 +62,20 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PayMeth_idMethod_id")
+                    b.Property<int>("Method_id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Purchase_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("User_id2User_id")
+                    b.Property<int>("User_id")
                         .HasColumnType("int");
 
                     b.HasKey("Bill_id");
 
-                    b.HasIndex("PayMeth_idMethod_id");
+                    b.HasIndex("Method_id");
 
-                    b.HasIndex("User_id2User_id");
+                    b.HasIndex("User_id");
 
                     b.ToTable("Bills");
                 });
@@ -425,21 +425,21 @@ namespace WebApplication1AGRO.Migrations
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.PaymentMethods", "PayMeth_id")
+                    b.HasOne("WebApplication1AGRO.Model.PaymentMethods", "PaymentMethods")
                         .WithMany()
-                        .HasForeignKey("PayMeth_idMethod_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Method_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1AGRO.Model.Users", "User_id2")
+                    b.HasOne("WebApplication1AGRO.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("User_id2User_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("User_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("PayMeth_id");
+                    b.Navigation("PaymentMethods");
 
-                    b.Navigation("User_id2");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Contacts", b =>
