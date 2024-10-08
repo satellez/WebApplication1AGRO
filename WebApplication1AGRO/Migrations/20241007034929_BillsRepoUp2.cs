@@ -5,7 +5,7 @@
 namespace WebApplication1AGRO.Migrations
 {
     /// <inheritdoc />
-    public partial class EditRepositories : Migration
+    public partial class BillsRepoUp2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

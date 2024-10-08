@@ -12,8 +12,8 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    [Migration("20240925020300_All2")]
-    partial class All2
+    [Migration("20241007000602_relations2")]
+    partial class relations2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,9 +39,14 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Product_id1")
+                        .HasColumnType("int");
+
                     b.HasKey("BillDeta_id");
 
                     b.HasIndex("Bill_id1");
+
+                    b.HasIndex("Product_id1");
 
                     b.ToTable("BillDetails");
                 });
@@ -347,17 +352,31 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<DateTime>("Born_date")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Document_id")
+                        .HasColumnType("int");
+
                     b.Property<string>("Document_number")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Document_typesDocument_id")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Last_names")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -369,7 +388,7 @@ namespace WebApplication1AGRO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserTypesUserType_id")
+                    b.Property<int>("UserType_id")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -378,9 +397,9 @@ namespace WebApplication1AGRO.Migrations
 
                     b.HasKey("User_id");
 
-                    b.HasIndex("Document_typesDocument_id");
+                    b.HasIndex("Document_id");
 
-                    b.HasIndex("UserTypesUserType_id");
+                    b.HasIndex("UserType_id");
 
                     b.ToTable("Users");
                 });
@@ -393,7 +412,15 @@ namespace WebApplication1AGRO.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebApplication1AGRO.Model.Products", "Product_id")
+                        .WithMany()
+                        .HasForeignKey("Product_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Bill_id");
+
+                    b.Navigation("Product_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
@@ -485,19 +512,19 @@ namespace WebApplication1AGRO.Migrations
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Users", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.Documents", "Document_types")
+                    b.HasOne("WebApplication1AGRO.Model.Documents", "Documents")
                         .WithMany()
-                        .HasForeignKey("Document_typesDocument_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Document_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("WebApplication1AGRO.Model.UserTypes", "UserTypes")
                         .WithMany()
-                        .HasForeignKey("UserTypesUserType_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("UserType_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Document_types");
+                    b.Navigation("Documents");
 
                     b.Navigation("UserTypes");
                 });

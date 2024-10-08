@@ -1,16 +1,12 @@
 using WebApplication1AGRO.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Contracts;
-
 
 namespace WebApplication1AGRO.Context
 {
     public class AgroDbContext : DbContext
-
     {
         public AgroDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         public DbSet<Products> Products { get; set; }
@@ -27,67 +23,65 @@ namespace WebApplication1AGRO.Context
         public DbSet<BillDetails> BillDetails { get; set; }
         public DbSet<Contacts> Contacts { get; set; }
 
-
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ProductCategories>()
-            .HasKey(pc => pc.Category_id);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Products>()
-            .HasKey(p => p.Product_id);
+            // Definiciones de claves primarias
+            modelBuilder.Entity<Products>().HasKey(p => p.Product_id);
+            modelBuilder.Entity<Collections>().HasKey(c => c.CollectionPoint_id);
+            modelBuilder.Entity<ProductCategories>().HasKey(pc => pc.Category_id);
+            modelBuilder.Entity<ProductDetails>().HasKey(pd => pd.ProdDeta_id);
+            modelBuilder.Entity<Offers>().HasKey(o => o.Offer_id);
+            modelBuilder.Entity<Users>().HasKey(u => u.User_id);
+            modelBuilder.Entity<UserTypes>().HasKey(u => u.UserType_id);
+            modelBuilder.Entity<Contacts>().HasKey(c => c.Contact_id);
+            modelBuilder.Entity<Documents>().HasKey(d => d.Document_id);
+            modelBuilder.Entity<DataTypes>().HasKey(dt => dt.DataType_id);
+            modelBuilder.Entity<PaymentMethods>().HasKey(pm => pm.Method_id);
+            modelBuilder.Entity<BillDetails>().HasKey(bd => bd.BillDeta_id);
+            modelBuilder.Entity<Bills>().HasKey(b => b.Bill_id);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Collections>()
-            .HasKey(c => c.CollectionPoint_id);
+            // Relaciones
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ProductDetails>()
-            .HasKey(pd => pd.ProdDeta_id);
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Offers>()
-            .HasKey(o => o.Offer_id);
-
-            base.OnModelCreating(modelBuilder);
+            // Relaciones de Users
             modelBuilder.Entity<Users>()
-                .HasKey(u => u.User_id);
+                .HasOne<UserTypes>(u => u.UserTypes)
+                .WithMany()
+                .HasForeignKey(u => u.UserType_id)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserTypes>()
-                .HasKey(u => u.UserType_id);
+            modelBuilder.Entity<Users>()
+                .HasOne<Documents>(u => u.Documents)
+                .WithMany()
+                .HasForeignKey(u => u.Document_id)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Contacts>()
-                .HasKey(u => u.Contact_id);
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Documents>()
-                .HasKey(u => u.Document_id);
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<DataTypes>()
-                .HasKey(u => u.DataType_id);
-
-            base.OnModelCreating(modelBuilder);
+            // Relaciones de Bills
             modelBuilder.Entity<Bills>()
-                .HasKey(u => u.Bill_id);
+                .HasOne<Users>(b => b.Users)
+                .WithMany()
+                .HasForeignKey(b => b.User_id)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<PaymentMethods>()
-                .HasKey(u => u.Method_id);
+            modelBuilder.Entity<Bills>()
+                .HasOne<PaymentMethods>(b => b.PaymentMethods)
+                .WithMany()
+                .HasForeignKey(b => b.Method_id)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            base.OnModelCreating(modelBuilder);
+            // Relaciones de BillDetails
             modelBuilder.Entity<BillDetails>()
-                .HasKey(u => u.BillDeta_id);
+                .HasOne<Bills>(bd => bd.Bills)
+                .WithMany()
+                .HasForeignKey(bd => bd.Bill_id)
+                .OnDelete(DeleteBehavior.Restrict);
 
-
+            modelBuilder.Entity<BillDetails>()
+                .HasOne<Products>(bd => bd.Products)
+                .WithMany()
+                .HasForeignKey(bd => bd.Product_id)
+                .OnDelete(DeleteBehavior.Restrict);
         }
-
-
     }
 }
