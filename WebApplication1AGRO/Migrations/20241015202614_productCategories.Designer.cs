@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241015202614_productCategories")]
+    partial class productCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,7 +304,7 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_id"));
 
-                    b.Property<int>("Category_id")
+                    b.Property<int>("Category_id1")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -313,7 +316,7 @@ namespace WebApplication1AGRO.Migrations
 
                     b.HasKey("Product_id");
 
-                    b.HasIndex("Category_id");
+                    b.HasIndex("Category_id1");
 
                     b.ToTable("Products");
                 });
@@ -498,13 +501,13 @@ namespace WebApplication1AGRO.Migrations
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Products", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.ProductCategories", "ProductCategories")
+                    b.HasOne("WebApplication1AGRO.Model.ProductCategories", "Category_id")
                         .WithMany()
-                        .HasForeignKey("Category_id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("Category_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductCategories");
+                    b.Navigation("Category_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Users", b =>
