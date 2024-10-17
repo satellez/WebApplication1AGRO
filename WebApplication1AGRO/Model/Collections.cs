@@ -4,7 +4,7 @@
     {
         public required int CollectionPoint_id { get; set; }
         public required string PointName { get; set; }
-        public required string Addres { get; set; }
+        public required string Address { get; set; }
         public bool IsDeleted { get; set; }=false;
     }
 }

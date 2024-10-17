@@ -12,8 +12,8 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    [Migration("20241007023030_BillDetailsUpdate")]
-    partial class BillDetailsUpdate
+    [Migration("20241015215353_products")]
+    partial class products
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,20 +62,20 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PayMeth_idMethod_id")
+                    b.Property<int>("Method_id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Purchase_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("User_id2User_id")
+                    b.Property<int>("User_id")
                         .HasColumnType("int");
 
                     b.HasKey("Bill_id");
 
-                    b.HasIndex("PayMeth_idMethod_id");
+                    b.HasIndex("Method_id");
 
-                    b.HasIndex("User_id2User_id");
+                    b.HasIndex("User_id");
 
                     b.ToTable("Bills");
                 });
@@ -88,7 +88,7 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CollectionPoint_id"));
 
-                    b.Property<string>("Addres")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -304,7 +304,7 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_id"));
 
-                    b.Property<int>("Category_id1")
+                    b.Property<int>("Category_id")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -316,7 +316,7 @@ namespace WebApplication1AGRO.Migrations
 
                     b.HasKey("Product_id");
 
-                    b.HasIndex("Category_id1");
+                    b.HasIndex("Category_id");
 
                     b.ToTable("Products");
                 });
@@ -425,21 +425,21 @@ namespace WebApplication1AGRO.Migrations
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Bills", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.PaymentMethods", "PayMeth_id")
+                    b.HasOne("WebApplication1AGRO.Model.PaymentMethods", "PaymentMethods")
                         .WithMany()
-                        .HasForeignKey("PayMeth_idMethod_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Method_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1AGRO.Model.Users", "User_id2")
+                    b.HasOne("WebApplication1AGRO.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("User_id2User_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("User_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("PayMeth_id");
+                    b.Navigation("PaymentMethods");
 
-                    b.Navigation("User_id2");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Contacts", b =>
@@ -501,13 +501,13 @@ namespace WebApplication1AGRO.Migrations
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Products", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.ProductCategories", "Category_id")
+                    b.HasOne("WebApplication1AGRO.Model.ProductCategories", "ProductCategories")
                         .WithMany()
-                        .HasForeignKey("Category_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Category_id")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Category_id");
+                    b.Navigation("ProductCategories");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Users", b =>

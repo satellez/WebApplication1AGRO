@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Services.InterfacesService;
 
@@ -20,14 +23,13 @@ namespace WebApplication1AGRO.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Collections>>> GetAllCollections()
         {
-            var collections1 = await _collectionsService.GetAllCollectionsAsync();
-            return Ok(collections1);
+            var collections = await _collectionsService.GetAllCollectionsAsync();
+            return Ok(collections);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<ActionResult<Collections>> GetCollectionsById(int id)
         {
             var collections = await _collectionsService.GetCollectionsByIdAsync(id);
@@ -48,14 +50,12 @@ namespace WebApplication1AGRO.Controllers
 
             await _collectionsService.CreateCollectionsAsync(collections);
             return CreatedAtAction(nameof(GetCollectionsById), new { id = collections.CollectionPoint_id }, collections);
-
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> UpdateCollections(int id, [FromBody] Collections collections)
         {
             if (id != collections.CollectionPoint_id)
@@ -67,14 +67,11 @@ namespace WebApplication1AGRO.Controllers
 
             await _collectionsService.UpdateCollectionsAsync(collections);
             return NoContent();
-
         }
-
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> SoftDeleteCollections(int id)
         {
             var collections = await _collectionsService.GetCollectionsByIdAsync(id);
@@ -84,6 +81,5 @@ namespace WebApplication1AGRO.Controllers
             await _collectionsService.SoftDeleteCollectionsAsync(id);
             return NoContent();
         }
-
     }
 }

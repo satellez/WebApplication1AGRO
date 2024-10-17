@@ -3,10 +3,8 @@ using WebApplication1AGRO.Context;
 using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Repositories.InterfacesRepository;
 
-
 namespace WebApplication1AGRO.Repositories
 {
-
     public class DataTypesRepository : IDataTypesRepository
     {
         private readonly AgroDbContext _context;
@@ -16,12 +14,15 @@ namespace WebApplication1AGRO.Repositories
             _context = context;
         }
 
+        
         public async Task CreateDataTypesAsync(DataTypes dataTypes)
         {
+            dataTypes.IsDeleted = false;
             _context.DataTypes.Add(dataTypes);
             await _context.SaveChangesAsync();
         }
 
+        
         public async Task<IEnumerable<DataTypes>> GetAllDataTypesAsync()
         {
             return await _context.DataTypes
@@ -29,12 +30,14 @@ namespace WebApplication1AGRO.Repositories
                 .ToListAsync();
         }
 
+        
         public async Task<DataTypes?> GetDataTypesByIdAsync(int id)
         {
             return await _context.DataTypes
                 .FirstOrDefaultAsync(s => s.DataType_id == id && !s.IsDeleted);
         }
 
+        
         public async Task SoftDeleteDataTypesAsync(int id)
         {
             var dataTypes = await _context.DataTypes.FindAsync(id);
@@ -45,10 +48,19 @@ namespace WebApplication1AGRO.Repositories
             }
         }
 
-        public async Task UpdateDataTypesAsync(DataTypes dataTypes)
+        
+        public async Task UpdateDataTypesAsync(DataTypes updatedDataTypes)
         {
-            _context.DataTypes.Update(dataTypes);
-            await _context.SaveChangesAsync();
+            var existingDataType = await _context.DataTypes.FindAsync(updatedDataTypes.DataType_id);
+            if (existingDataType != null)
+            {
+                existingDataType.DataType_name = updatedDataTypes.DataType_name;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"DataType with ID {updatedDataTypes.DataType_id} not found.");
+            }
         }
     }
 }
