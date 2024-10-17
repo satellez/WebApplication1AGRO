@@ -89,6 +89,25 @@ namespace WebApplication1AGRO.Context
                 .WithMany()
                 .HasForeignKey(p => p.Category_id)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Relaciones de ProductDetails
+            modelBuilder.Entity<ProductDetails>()
+                .HasOne<Products>(pd => pd.Products)
+                .WithMany()
+                .HasForeignKey(pd => pd.Product_id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductDetails>()
+                .HasOne<Users>(pd => pd.Users)
+                .WithMany()
+                .HasForeignKey(pd => pd.User_id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProductDetails>()
+                .HasOne<Collections>(pd => pd.Collections)
+                .WithMany()
+                .HasForeignKey(pd => pd.CollectionPoint_id)
+                .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }
