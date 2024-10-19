@@ -17,6 +17,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS Configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 // Record of repositories and services
 builder.Services.AddScoped<ICollectionsRepository, CollectionsRepository>();
 builder.Services.AddScoped<ICollectionsService, CollectionsService>();
@@ -61,12 +72,13 @@ builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+// Habilitar CORS antes de mapear los controladores
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

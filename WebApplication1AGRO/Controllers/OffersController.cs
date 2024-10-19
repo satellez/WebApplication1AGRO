@@ -20,20 +20,19 @@ namespace WebApplication1AGRO.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Offers>>> GetAllOffers()
         {
-            var offers1 = await _offersService.GetAllOffersAsync();
-            return Ok(offers1);
+            var offers = await _offersService.GetAllOffersAsync();
+            return Ok(offers);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<ActionResult<Offers>> GetOffersById(int id)
         {
             var offers = await _offersService.GetOffersByIdAsync(id);
             if (offers == null)
             {
-                return NotFound();
+                return NotFound($"Oferta con ID {id} no encontrada.");
             }
             return Ok(offers);
         }
@@ -48,43 +47,36 @@ namespace WebApplication1AGRO.Controllers
 
             await _offersService.CreateOffersAsync(offers);
             return CreatedAtAction(nameof(GetOffersById), new { id = offers.Offer_id }, offers);
-
         }
-
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> UpdateOffers(int id, [FromBody] Offers offers)
         {
             if (id != offers.Offer_id)
-                return BadRequest();
+                return BadRequest("ID de oferta no coincide.");
 
             var existingOffers = await _offersService.GetOffersByIdAsync(id);
             if (existingOffers == null)
-                return NotFound();
+                return NotFound($"Oferta con ID {id} no encontrada.");
 
             await _offersService.UpdateOffersAsync(offers);
             return NoContent();
-
         }
-
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> SoftDeleteOffers(int id)
         {
             var offers = await _offersService.GetOffersByIdAsync(id);
             if (offers == null)
-                return NotFound();
+                return NotFound($"Oferta con ID {id} no encontrada.");
 
             await _offersService.SoftDeleteOffersAsync(id);
             return NoContent();
         }
-
     }
 }
