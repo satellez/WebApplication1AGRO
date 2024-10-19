@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1AGRO.Context;
 
@@ -11,9 +12,11 @@ using WebApplication1AGRO.Context;
 namespace WebApplication1AGRO.Migrations
 {
     [DbContext(typeof(AgroDbContext))]
-    partial class AgroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019004617_BillsxBillDetailsCorrections")]
+    partial class BillsxBillDetailsCorrections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,20 +116,20 @@ namespace WebApplication1AGRO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DataType_id")
+                    b.Property<int>("DataType_id1")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("User_id1")
                         .HasColumnType("int");
 
                     b.HasKey("Contact_id");
 
-                    b.HasIndex("DataType_id");
+                    b.HasIndex("DataType_id1");
 
-                    b.HasIndex("User_id");
+                    b.HasIndex("User_id1");
 
                     b.ToTable("Contacts");
                 });
@@ -179,6 +182,9 @@ namespace WebApplication1AGRO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Offer_id"));
 
+                    b.Property<int>("Category_id")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndOffer")
                         .HasColumnType("datetime2");
 
@@ -188,7 +194,7 @@ namespace WebApplication1AGRO.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProdDeta_id")
+                    b.Property<int>("ProdDeta_id1")
                         .HasColumnType("int");
 
                     b.Property<int>("QuantityOffer")
@@ -199,7 +205,7 @@ namespace WebApplication1AGRO.Migrations
 
                     b.HasKey("Offer_id");
 
-                    b.HasIndex("ProdDeta_id");
+                    b.HasIndex("ProdDeta_id1");
 
                     b.ToTable("Offers");
                 });
@@ -438,32 +444,32 @@ namespace WebApplication1AGRO.Migrations
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Contacts", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.DataTypes", "DataTypes")
+                    b.HasOne("WebApplication1AGRO.Model.DataTypes", "DataType_id")
                         .WithMany()
-                        .HasForeignKey("DataType_id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("DataType_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1AGRO.Model.Users", "Users")
+                    b.HasOne("WebApplication1AGRO.Model.Users", "User_id")
                         .WithMany()
-                        .HasForeignKey("User_id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("User_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DataTypes");
+                    b.Navigation("DataType_id");
 
-                    b.Navigation("Users");
+                    b.Navigation("User_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.Offers", b =>
                 {
-                    b.HasOne("WebApplication1AGRO.Model.ProductDetails", "ProductDetails")
+                    b.HasOne("WebApplication1AGRO.Model.ProductDetails", "ProdDeta_id")
                         .WithMany()
-                        .HasForeignKey("ProdDeta_id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("ProdDeta_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductDetails");
+                    b.Navigation("ProdDeta_id");
                 });
 
             modelBuilder.Entity("WebApplication1AGRO.Model.ProductDetails", b =>

@@ -9,5 +9,9 @@ namespace WebApplication1AGRO.Services.InterfacesRepository
         Task CreateUsersAsync(Users users);
         Task UpdateUsersAsync(Users users);
         Task SoftDeleteUsersAsync(int id);
+        Task<Users?> GetUsersByEmailAsync(string email);
+
+        // Nuevo método para login
+        Task<Users?> LoginAsync(string email, string password);
     }
 }

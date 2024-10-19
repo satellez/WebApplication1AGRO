@@ -27,7 +27,7 @@ namespace WebApplication1AGRO.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            // Definiciones de claves primarias
+            // Primary Keys
             modelBuilder.Entity<Products>().HasKey(p => p.Product_id);
             modelBuilder.Entity<Collections>().HasKey(c => c.CollectionPoint_id);
             modelBuilder.Entity<ProductCategories>().HasKey(pc => pc.Category_id);
@@ -42,9 +42,9 @@ namespace WebApplication1AGRO.Context
             modelBuilder.Entity<BillDetails>().HasKey(bd => bd.BillDeta_id);
             modelBuilder.Entity<Bills>().HasKey(b => b.Bill_id);
 
-            // Relaciones
+            // Keys - Relations
 
-            // Relaciones de Users
+            //  Users
             modelBuilder.Entity<Users>()
                 .HasOne<UserTypes>(u => u.UserTypes)
                 .WithMany()
@@ -57,7 +57,7 @@ namespace WebApplication1AGRO.Context
                 .HasForeignKey(u => u.Document_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Relaciones de Bills
+            //  Bills
             modelBuilder.Entity<Bills>()
                 .HasOne<Users>(b => b.Users)
                 .WithMany()
@@ -70,7 +70,7 @@ namespace WebApplication1AGRO.Context
                 .HasForeignKey(b => b.Method_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Relaciones de BillDetails
+            //  BillDetails
             modelBuilder.Entity<BillDetails>()
                 .HasOne<Bills>(bd => bd.Bills)
                 .WithMany()
@@ -83,14 +83,14 @@ namespace WebApplication1AGRO.Context
                 .HasForeignKey(bd => bd.Product_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Relaciones para Products
+            //  Products
             modelBuilder.Entity<Products>()
                 .HasOne(p => p.ProductCategories)
                 .WithMany()
                 .HasForeignKey(p => p.Category_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Relaciones de ProductDetails
+            //  ProductDetails
             modelBuilder.Entity<ProductDetails>()
                 .HasOne<Products>(pd => pd.Products)
                 .WithMany()
@@ -107,7 +107,27 @@ namespace WebApplication1AGRO.Context
                 .HasOne<Collections>(pd => pd.Collections)
                 .WithMany()
                 .HasForeignKey(pd => pd.CollectionPoint_id)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //  Contacts
+            modelBuilder.Entity<Contacts>()
+                .HasOne<Users>(c => c.Users)
+                .WithMany()
+                .HasForeignKey(c => c.User_id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Contacts>()
+                .HasOne<DataTypes>(c => c.DataTypes)
+                .WithMany()
+                .HasForeignKey(c => c.DataType_id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //  Offers
+            modelBuilder.Entity<Offers>()
+                .HasOne<ProductDetails>(o => o.ProductDetails)
+                .WithMany()
+                .HasForeignKey(o => o.ProdDeta_id)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -52,7 +52,11 @@ namespace WebApplication1AGRO.Repositories
             return await _context.ProductDetails
                 .Where(pd => !pd.IsDeleted)
                 .Include(pd => pd.Products)
+                    .ThenInclude(p => p.ProductCategories)  // Incluir ProductCategories dentro de Products
                 .Include(pd => pd.Users)
+                    .ThenInclude(u => u.UserTypes)          // Incluir UserTypes dentro de Users
+                .Include(pd => pd.Users)
+                    .ThenInclude(u => u.Documents)          // Incluir Documents dentro de Users
                 .Include(pd => pd.Collections)
                 .ToListAsync();
         }
@@ -61,7 +65,11 @@ namespace WebApplication1AGRO.Repositories
         {
             return await _context.ProductDetails
                 .Include(pd => pd.Products)
+                    .ThenInclude(p => p.ProductCategories)  // Incluir ProductCategories dentro de Products
                 .Include(pd => pd.Users)
+                    .ThenInclude(u => u.UserTypes)          // Incluir UserTypes dentro de Users
+                .Include(pd => pd.Users)
+                    .ThenInclude(u => u.Documents)          // Incluir Documents dentro de Users
                 .Include(pd => pd.Collections)
                 .FirstOrDefaultAsync(pd => pd.ProdDeta_id == id && !pd.IsDeleted);
         }

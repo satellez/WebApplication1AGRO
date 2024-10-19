@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1AGRO.DTOs;
 using WebApplication1AGRO.Model;
+using WebApplication1AGRO.Services;
 using WebApplication1AGRO.Services.InterfacesRepository;
 
 namespace WebApplication1AGRO.Controllers
@@ -86,5 +88,29 @@ namespace WebApplication1AGRO.Controllers
             await _usersService.SoftDeleteUsersAsync(id);
             return NoContent();
         }
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);  // Si los datos no son válidos
+            }
+
+            var user = await _usersService.LoginAsync(loginDto.Email, loginDto.Password);
+
+            if (user == null)
+            {
+                return Unauthorized("Credenciales inválidas.");
+            }
+
+            // Aquí podrías generar un token JWT o similar, pero por ahora retornamos los datos del usuario
+            return Ok(new { message = "Inicio de sesión exitoso", userId = user.User_id });
+        }
     }
 }
+
+
+    
+
