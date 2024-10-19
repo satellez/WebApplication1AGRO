@@ -28,7 +28,6 @@ namespace WebApplication1AGRO.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<ActionResult<BillDetails>> GetBillDetailsById(int id)
         {
             var billDetails = await _billDetailsService.GetBillDetailsByIdAsync(id);
@@ -49,14 +48,12 @@ namespace WebApplication1AGRO.Controllers
 
             await _billDetailsService.CreateBillDetailsAsync(billDetails);
             return CreatedAtAction(nameof(GetBillDetailsById), new { id = billDetails.BillDeta_id }, billDetails);
-
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> UpdateBillDetails(int id, [FromBody] BillDetails billDetails)
         {
             if (id != billDetails.BillDeta_id)
@@ -68,14 +65,11 @@ namespace WebApplication1AGRO.Controllers
 
             await _billDetailsService.UpdateBillDetailsAsync(billDetails);
             return NoContent();
-
         }
-
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> SoftDeleteBillDetails(int id)
         {
             var billDetails = await _billDetailsService.GetBillDetailsByIdAsync(id);

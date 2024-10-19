@@ -17,24 +17,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// CORS Configuration
+builder.Services.AddCors(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-
-//Record of repositories and services
+// Record of repositories and services
 builder.Services.AddScoped<ICollectionsRepository, CollectionsRepository>();
 builder.Services.AddScoped<ICollectionsService, CollectionsService>();
 
@@ -56,7 +50,6 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
 builder.Services.AddScoped<IUserTypesService, UserTypesService>();
 
-
 builder.Services.AddScoped<IBillsRepository, BillsRepository>();
 builder.Services.AddScoped<IBillsService, BillsService>();
 
@@ -75,8 +68,20 @@ builder.Services.AddScoped<IDocumentsService, DocumentsService>();
 builder.Services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
 builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
 
+// Build the app
+var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
 
+app.UseHttpsRedirection();
 
+// Habilitar CORS antes de mapear los controladores
+app.UseCors("AllowAll");
 
+app.UseAuthorization();
 
+app.MapControllers();
+
+app.Run();

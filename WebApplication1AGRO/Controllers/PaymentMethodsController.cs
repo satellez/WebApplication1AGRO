@@ -3,7 +3,6 @@ using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Services;
 using WebApplication1AGRO.Services.InterfacesRepository;
 
-
 namespace WebApplication1AGRO.Controllers
 {
     [ApiController]
@@ -22,22 +21,21 @@ namespace WebApplication1AGRO.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<PaymentMethods>>> GetAllPaymentMethods()
         {
-            var paymentMethods1 = await _paymentMethodsService.GetAllPaymentMethodsAsync();
-            return Ok(paymentMethods1);
+            var paymentMethods = await _paymentMethodsService.GetAllPaymentMethodsAsync();
+            return Ok(paymentMethods);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<ActionResult<PaymentMethods>> GetPaymentMethodsById(int id)
         {
-            var paymentMethods = await _paymentMethodsService.GetPaymentMethodsByIdAsync(id);
-            if (paymentMethods == null)
+            var paymentMethod = await _paymentMethodsService.GetPaymentMethodsByIdAsync(id);
+            if (paymentMethod == null)
             {
                 return NotFound();
             }
-            return Ok(paymentMethods);
+            return Ok(paymentMethod);
         }
 
         [HttpPost]
@@ -50,42 +48,36 @@ namespace WebApplication1AGRO.Controllers
 
             await _paymentMethodsService.CreatePaymentMethodsAsync(paymentMethods);
             return CreatedAtAction(nameof(GetPaymentMethodsById), new { id = paymentMethods.Method_id }, paymentMethods);
-
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> UpdatePaymentMethods(int id, [FromBody] PaymentMethods paymentMethods)
         {
             if (id != paymentMethods.Method_id)
                 return BadRequest();
 
-            var existingPaymentMethods = await _paymentMethodsService.GetPaymentMethodsByIdAsync(id);
-            if (existingPaymentMethods == null)
+            var existingPaymentMethod = await _paymentMethodsService.GetPaymentMethodsByIdAsync(id);
+            if (existingPaymentMethod == null)
                 return NotFound();
 
             await _paymentMethodsService.UpdatePaymentMethodsAsync(paymentMethods);
             return NoContent();
-
         }
-
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> SoftDeletePaymentMethods(int id)
         {
-            var paymentMethods = await _paymentMethodsService.GetPaymentMethodsByIdAsync(id);
-            if (paymentMethods == null)
+            var paymentMethod = await _paymentMethodsService.GetPaymentMethodsByIdAsync(id);
+            if (paymentMethod == null)
                 return NotFound();
 
             await _paymentMethodsService.SoftDeletePaymentMethodsAsync(id);
             return NoContent();
         }
-
     }
 }

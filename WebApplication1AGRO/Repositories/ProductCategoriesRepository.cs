@@ -7,7 +7,6 @@ namespace WebApplication1AGRO.Repositories
 {
     public class ProductCategoriesRepository : IProductCategoriesRepository
     {
-       
         private readonly AgroDbContext _context;
 
         public ProductCategoriesRepository(AgroDbContext context)
@@ -15,39 +14,53 @@ namespace WebApplication1AGRO.Repositories
             _context = context;
         }
 
+        // Crear una nueva categoría de producto
         public async Task CreateProductCategoriesAsync(ProductCategories productCategories)
         {
+            productCategories.IsDeleted = false;
             _context.ProductCategories.Add(productCategories);
             await _context.SaveChangesAsync();
         }
 
+        // Obtener todas las categorías de producto que no están eliminadas
         public async Task<IEnumerable<ProductCategories>> GetAllProductCategoriesAsync()
         {
             return await _context.ProductCategories
-                .Where(s => !s.IsDeleted)
+                .Where(pc => !pc.IsDeleted)
                 .ToListAsync();
         }
 
+        // Obtener una categoría de producto por ID si no está eliminada
         public async Task<ProductCategories?> GetProductCategoriesByIdAsync(int id)
         {
             return await _context.ProductCategories
-                .FirstOrDefaultAsync(s => s.Category_id == id && !s.IsDeleted);
+                .FirstOrDefaultAsync(pc => pc.Category_id == id && !pc.IsDeleted);
         }
 
+        // Eliminar lógicamente una categoría de producto
         public async Task SoftDeleteProductCategoriesAsync(int id)
         {
-            var productCategories = await _context.ProductCategories.FindAsync(id);
-            if (productCategories != null)
+            var productCategory = await _context.ProductCategories.FindAsync(id);
+            if (productCategory != null)
             {
-                productCategories.IsDeleted = true;
+                productCategory.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
         }
 
-        public async Task UpdateProductCategoriesAsync(ProductCategories productCategories)
+        // Actualizar una categoría de producto existente
+        public async Task UpdateProductCategoriesAsync(ProductCategories updatedProductCategories)
         {
-            _context.ProductCategories.Update(productCategories);
-            await _context.SaveChangesAsync();
+            var existingCategory = await _context.ProductCategories.FindAsync(updatedProductCategories.Category_id);
+            if (existingCategory != null)
+            {
+                existingCategory.Category_name = updatedProductCategories.Category_name;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"ProductCategory with ID {updatedProductCategories.Category_id} not found.");
+            }
         }
     }
 }

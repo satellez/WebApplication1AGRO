@@ -1,8 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1AGRO.DTOs;
 using WebApplication1AGRO.Model;
+using WebApplication1AGRO.Services;
 using WebApplication1AGRO.Services.InterfacesRepository;
-
 
 namespace WebApplication1AGRO.Controllers
 {
@@ -17,6 +17,7 @@ namespace WebApplication1AGRO.Controllers
             _usersService = usersService;
         }
 
+        // GET all users
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -26,19 +27,21 @@ namespace WebApplication1AGRO.Controllers
             return Ok(users1);
         }
 
+        // GET user by ID
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<ActionResult<Users>> GetUsersById(int id)
         {
             var users = await _usersService.GetUsersByIdAsync(id);
-            if (users == null) {
-                return NotFound();
+            if (users == null)
+            {
+                return NotFound($"User with ID {id} not found.");
             }
             return Ok(users);
         }
 
+        // POST create new user
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -49,42 +52,65 @@ namespace WebApplication1AGRO.Controllers
 
             await _usersService.CreateUsersAsync(users);
             return CreatedAtAction(nameof(GetUsersById), new { id = users.User_id }, users);
-
         }
 
+        // PUT update existing user
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> UpdateUsers(int id, [FromBody] Users users)
         {
+            
             if (id != users.User_id)
-                return BadRequest();
+                return BadRequest("User ID mismatch.");
 
+            
             var existingUsers = await _usersService.GetUsersByIdAsync(id);
             if (existingUsers == null)
-                return NotFound();
+                return NotFound($"User with ID {id} not found.");
 
+            
             await _usersService.UpdateUsersAsync(users);
-            return NoContent();
-
+            return NoContent();  // Return 204 if successful
         }
 
-
+        // DELETE soft delete user
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> SoftDeleteUsers(int id)
         {
             var users = await _usersService.GetUsersByIdAsync(id);
-            if(users == null)
-                return NotFound();
+            if (users == null)
+                return NotFound($"User with ID {id} not found.");
 
-            await _usersService.SoftDeleteUsersAsync(id); 
+            await _usersService.SoftDeleteUsersAsync(id);
             return NoContent();
         }
 
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);  // Si los datos no son válidos
+            }
+
+            var user = await _usersService.LoginAsync(loginDto.Email, loginDto.Password);
+
+            if (user == null)
+            {
+                return Unauthorized("Credenciales inválidas.");
+            }
+
+            // Aquí podrías generar un token JWT o similar, pero por ahora retornamos los datos del usuario
+            return Ok(new { message = "Inicio de sesión exitoso", userId = user.User_id });
+        }
     }
 }
+
+
+    
+

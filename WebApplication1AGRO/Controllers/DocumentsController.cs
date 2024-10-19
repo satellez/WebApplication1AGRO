@@ -3,7 +3,6 @@ using WebApplication1AGRO.Model;
 using WebApplication1AGRO.Services;
 using WebApplication1AGRO.Services.InterfacesRepository;
 
-
 namespace WebApplication1AGRO.Controllers
 {
     [ApiController]
@@ -22,14 +21,13 @@ namespace WebApplication1AGRO.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Documents>>> GetAllDocuments()
         {
-            var documents1 = await _documentsService.GetAllDocumentsAsync();
-            return Ok(documents1);
+            var documents = await _documentsService.GetAllDocumentsAsync();
+            return Ok(documents);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<ActionResult<Documents>> GetDocumentsById(int id)
         {
             var documents = await _documentsService.GetDocumentsByIdAsync(id);
@@ -50,14 +48,12 @@ namespace WebApplication1AGRO.Controllers
 
             await _documentsService.CreateDocumentsAsync(documents);
             return CreatedAtAction(nameof(GetDocumentsById), new { id = documents.Document_id }, documents);
-
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> UpdateDocuments(int id, [FromBody] Documents documents)
         {
             if (id != documents.Document_id)
@@ -69,14 +65,11 @@ namespace WebApplication1AGRO.Controllers
 
             await _documentsService.UpdateDocumentsAsync(documents);
             return NoContent();
-
         }
-
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> SoftDeleteDocuments(int id)
         {
             var documents = await _documentsService.GetDocumentsByIdAsync(id);
@@ -86,6 +79,5 @@ namespace WebApplication1AGRO.Controllers
             await _documentsService.SoftDeleteDocumentsAsync(id);
             return NoContent();
         }
-
     }
 }
