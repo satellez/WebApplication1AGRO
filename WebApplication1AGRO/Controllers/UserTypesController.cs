@@ -42,7 +42,7 @@ namespace WebApplication1AGRO.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateUserTypes([FromForm] UserTypes userTypes)
+        public async Task<ActionResult> CreateUserTypes([FromBody] UserTypes userTypes)
         {
             Debug.Write("data"+userTypes.UserType_name);
             if (!ModelState.IsValid)

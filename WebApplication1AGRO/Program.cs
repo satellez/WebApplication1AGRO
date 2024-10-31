@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Record of repositories and services
+// Register repositories and services
 builder.Services.AddScoped<ICollectionsRepository, CollectionsRepository>();
 builder.Services.AddScoped<ICollectionsService, CollectionsService>();
 
@@ -77,7 +77,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-// Habilitar CORS antes de mapear los controladores
+// Enable CORS before mapping controllers
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
