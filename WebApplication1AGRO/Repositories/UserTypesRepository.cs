@@ -45,10 +45,21 @@ namespace WebApplication1AGRO.Repositories
             }
         }
 
-        public async Task UpdateUserTypesAsync(UserTypes userTypes)
+        public async Task UpdateUserTypesAsync(UserTypes updatedUserTypes)
         {
-            _context.UserTypes.Update(userTypes);
-            await _context.SaveChangesAsync();
+            var existingUserTypes = await _context.UserTypes.FindAsync(updatedUserTypes.UserType_id);
+            if (existingUserTypes != null)
+            {
+                // Actualizamos los campos
+                existingUserTypes.UserType_name = updatedUserTypes.UserType_name;
+
+                // Guardar los cambios en la base de datos
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"UserType with ID {updatedUserTypes.UserType_id} not found.");
+            }
         }
     }
 }
